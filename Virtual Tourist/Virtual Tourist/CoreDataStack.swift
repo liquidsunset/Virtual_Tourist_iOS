@@ -106,7 +106,6 @@ extension CoreDataStack {
         if self.context.hasChanges {
             do {
                 try self.context.save()
-                print("context saved")
             } catch {
                 fatalError("Error while saving main context: \(error)")
             }
@@ -119,7 +118,6 @@ extension CoreDataStack {
     func autoSave(delayInSeconds: Int) {
 
         if delayInSeconds > 0 {
-            print("Autosaving")
             save()
 
             let delayInNanoSeconds = UInt64(delayInSeconds) * NSEC_PER_SEC

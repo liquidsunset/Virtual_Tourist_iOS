@@ -30,13 +30,15 @@ extension FlickrClient {
         static let SafeSearch = "safe_search"
         static let Extras = "extras"
         static let Format = "format"
+        static let Page = "page"
     }
 
     struct URLParameterValues {
         static let ResponseFormat = "json"
         static let NOJsonCallback = "1"
-        static let Radius = 1 //in km
-        static let PicsPerPage = 10
+        static let Radius = 2
+        //in km
+        static let PicsPerPage = 20
         static let UseSafeSearch = "1"
         static let MediumURL = "url_m"
         static let JsonFormat = "json"
@@ -48,6 +50,8 @@ extension FlickrClient {
         static let Photo = "photo"
         static let MediumURL = "url_m"
         static let Id = "id"
+        static let Pages = "pages"
+        static let Page = "page"
     }
 
     struct JsonResponseValues {

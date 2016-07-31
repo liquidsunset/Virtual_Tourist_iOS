@@ -17,25 +17,26 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var newCollectionButton: UIBarButtonItem!
-    
+
     var pin: Pin!
     var photos = [Photo]()
     var stack: CoreDataStack!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBarHidden = false
-        
+
         mapView.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+
         centerMapToPin(Double(pin.latidude!), longitude: Double(pin.longitude!))
         mapView.addAnnotation(pin)
-        
-        if (photos.count == 0){
+
+        if (photos.count == 0) {
             newCollectionButton.enabled = false
             getPhotosFromFlickr()
+            collectionView.reloadData()
         }
     }
 
@@ -44,10 +45,10 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-            self.stack.context.deleteObject(self.photos[indexPath.row])
-            self.photos.removeAtIndex(indexPath.row)
-            collectionView.deleteItemsAtIndexPaths([indexPath])
-            self.stack.save()
+        self.stack.context.deleteObject(self.photos[indexPath.row])
+        self.photos.removeAtIndex(indexPath.row)
+        collectionView.deleteItemsAtIndexPaths([indexPath])
+        self.stack.save()
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -55,38 +56,44 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         cell.pic = photos[indexPath.row]
         return cell
     }
-    
+
     func getPhotosFromFlickr() {
-        FlickrClient.sharedInstance.getPictures(pin, context: stack.context) {
-            (success, error) in
+        FlickrClient.sharedInstance.getPictures(nil, pin: pin, context: stack.context) {
+            (photos, error) in
             guard (error == nil) else {
                 self.performUpdatesOnMain() {
-                    self.showAlertMessage("Error", message: error!)}
+                    self.showAlertMessage("Error", message: error!)
+                }
                 return
             }
-            
-            if success {
-                self.performUpdatesOnMain(){
-                self.stack.save()
-                    self.newCollectionButton.enabled = true
+
+            if (photos.count == 0) {
+                
+            }else {
+                self.performUpdatesOnMain() {
+                    self.photos = photos
+                    self.stack.save()
                     self.collectionView.reloadData()
+                    self.newCollectionButton.enabled = true
                 }
+
             }
-            
-            
+
+        }
     }
-    }
-    
+
     func centerMapToPin(latitude: Double, longitude: Double) {
         let clLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let span = MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0)
         mapView.setRegion(MKCoordinateRegion(center: clLocation, span: span), animated: true)
     }
-    
+
     func removePhotos() {
         for photo in photos {
             stack.context.deleteObject(photo)
         }
+        photos = []
+        collectionView.reloadData()
         stack.save()
     }
 

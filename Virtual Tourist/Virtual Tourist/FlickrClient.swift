@@ -14,9 +14,9 @@ class FlickrClient {
 
     static let sharedInstance = FlickrClient()
 
-    func getPictures(pin: Pin, context: NSManagedObjectContext, completionHandler: (success:Bool, errorMessage:String?) -> Void) {
-        
-        let urlString = createFlickrUrlString(Double(pin.latidude!), lon: Double(pin.longitude!))
+    func getPictures(pageNumber: Int?, pin: Pin, context: NSManagedObjectContext, completionHandler: (photos:[Photo]!, errorMessage:String?) -> Void) {
+
+        let urlString = createFlickrUrlString(pageNumber, lat: Double(pin.latidude!), lon: Double(pin.longitude!))
         print(urlString)
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
@@ -26,69 +26,85 @@ class FlickrClient {
             data, response, error in
 
             guard (error == nil) else {
-                return completionHandler(success: false, errorMessage: error?.description)
+                return completionHandler(photos: nil, errorMessage: error?.description)
             }
 
             guard let data = data else {
-                completionHandler(success: false, errorMessage: "No data received")
+                completionHandler(photos: nil, errorMessage: "No data received")
                 return
             }
 
             Utility.parseJSONWithCompletionHandler(data) {
                 (parsedJsonResult, error) in
                 guard (error == nil) else {
-                    completionHandler(success: false, errorMessage: "Failed to parse Data")
+                    completionHandler(photos: nil, errorMessage: "Failed to parse Data")
                     return
                 }
 
                 guard let parsedJsonResult = parsedJsonResult else {
-                    completionHandler(success: false, errorMessage: "Failed to parse Data")
+                    completionHandler(photos: nil, errorMessage: "Failed to parse Data")
                     return
                 }
 
                 guard let status = parsedJsonResult[JsonResponseKeys.Status] as? String where status == JsonResponseValues.JsonOKStatus else {
-                    completionHandler(success: false, errorMessage: "Failure in JSON-Response")
+                    completionHandler(photos: nil, errorMessage: "Failure in JSON-Response")
                     return
                 }
 
                 guard let photosDic = parsedJsonResult[JsonResponseKeys.Photos] as? [String:AnyObject] else {
-                    completionHandler(success: false, errorMessage: "Error getting photo-dic")
+                    completionHandler(photos: nil, errorMessage: "Error getting photo-dic")
                     return
                 }
 
-                guard let photoArray = photosDic[JsonResponseKeys.Photo] as? [[String:AnyObject]] else {
-                    completionHandler(success: false, errorMessage: "Error creating photo-array")
-                    return
-                }
-
-                guard (photoArray.count != 0) else {
-                    completionHandler(success: false, errorMessage: "No photos found")
-                    return
-                }
-
-                for photo in photoArray {
-
-                    guard let imageURL = photo[JsonResponseKeys.MediumURL] as? String else {
-                        completionHandler(success: false, errorMessage: "No URL for Picture")
+                if (pageNumber == nil) {
+                    guard let pages = photosDic[JsonResponseKeys.Pages] as? Int else {
+                        completionHandler(photos: nil, errorMessage: "No Flickr Photo-Page found")
                         return
                     }
 
-                    guard let imgID = photo[JsonResponseKeys.Id] as? String else {
-                        completionHandler(success: false, errorMessage: "No ID for Picture found")
+                    let random = Int(arc4random_uniform(UInt32(pages))) + 1
+                    self.getPictures(random, pin: pin, context: context, completionHandler: completionHandler)
+
+                } else {
+
+                    guard let photoArray = photosDic[JsonResponseKeys.Photo] as? [[String:AnyObject]] else {
+                        completionHandler(photos: nil, errorMessage: "Error creating photo-array")
                         return
                     }
 
-                    let persistenPhoto = Photo(url: imageURL, id: imgID, context: context)
-                    persistenPhoto.pin = pin
+                    guard (photoArray.count != 0) else {
+                        completionHandler(photos: nil, errorMessage: "No photos found")
+                        return
+                    }
+
+                    var persistentPhotosArray = [Photo]()
+                    for photo in photoArray {
+
+                        guard let imageURL = photo[JsonResponseKeys.MediumURL] as? String else {
+                            completionHandler(photos: nil, errorMessage: "No URL for Picture")
+                            return
+                        }
+
+                        guard let imgID = photo[JsonResponseKeys.Id] as? String else {
+                            completionHandler(photos: nil, errorMessage: "No ID for Picture found")
+                            return
+                        }
+
+                        let persistentPhoto = Photo(url: imageURL, id: imgID, context: context)
+                        persistentPhoto.pin = pin
+                        persistentPhotosArray.append(persistentPhoto)
+                    }
+
+                    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let stack = delegate.stack
+                    stack.save()
+
+                    completionHandler(photos: persistentPhotosArray, errorMessage: nil)
                 }
-                
-                let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                let stack = delegate.stack
-                stack.save()
-                
-                completionHandler(success: true, errorMessage: nil)
             }
+
         }
+
 
         task.resume()
 
@@ -120,21 +136,29 @@ class FlickrClient {
 
     }
 
-    private func createFlickrUrlString(lat: Double, lon: Double) -> String {
-        let urlParameters: [String: AnyObject] = [
-            URLParameterKeys.APIKey: Constants.FlickrAPIKey,
-            URLParameterKeys.SafeSearch: URLParameterValues.UseSafeSearch,
-            URLParameterKeys.Extras: URLParameterValues.MediumURL,
-            URLParameterKeys.Method: Methods.FlickrPhotoSearch,
-            URLParameterKeys.PerPage: URLParameterValues.PicsPerPage,
-            URLParameterKeys.Format: URLParameterValues.JsonFormat,
-            URLParameterKeys.Lat: lat,
-            URLParameterKeys.Lon: lon,
-            URLParameterKeys.Radius: URLParameterValues.Radius,
-            URLParameterKeys.NoJsonCallback: URLParameterValues.NOJsonCallback
+    private func createFlickrUrlString(pageNumber: Int?, lat: Double, lon: Double) -> String {
+        let urlParameters: [String:AnyObject] = [
+                URLParameterKeys.APIKey: Constants.FlickrAPIKey,
+                URLParameterKeys.SafeSearch: URLParameterValues.UseSafeSearch,
+                URLParameterKeys.Extras: URLParameterValues.MediumURL,
+                URLParameterKeys.Method: Methods.FlickrPhotoSearch,
+                URLParameterKeys.PerPage: URLParameterValues.PicsPerPage,
+                URLParameterKeys.Format: URLParameterValues.JsonFormat,
+                URLParameterKeys.Lat: lat,
+                URLParameterKeys.Lon: lon,
+                URLParameterKeys.Radius: URLParameterValues.Radius,
+                URLParameterKeys.NoJsonCallback: URLParameterValues.NOJsonCallback
+        ]
+        var urlString = Constants.BaseUrlSecure + Utility.escapedParameters(urlParameters)
+        if (pageNumber == nil) {
+            return urlString
+        } else {
+            let pageParam: [String:AnyObject] = [
+                    URLParameterKeys.Page: pageNumber!
             ]
-        let urlString = Constants.BaseUrlSecure + Utility.escapedParameters(urlParameters)
-        return urlString
+            urlString = urlString + Utility.escapedParameters(pageParam)
+            return urlString
+        }
     }
 
 }

@@ -68,18 +68,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8AR-Xz-kPj">
-                                <rect key="frame" x="0.0" y="49" width="600" height="149"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8AR-Xz-kPj">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="174"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="149" id="mUi-GK-GYm"/>
+                                    <constraint firstAttribute="height" constant="198" id="6Ol-mP-NUq"/>
                                 </constraints>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xtn-M4-bbr">
-                                <rect key="frame" x="0.0" y="198" width="600" height="358"/>
+                                <rect key="frame" x="0.0" y="172" width="600" height="384"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="358" id="Lfb-xk-nvf"/>
-                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eFU-0e-bMs">
                                     <size key="itemSize" width="122" height="98"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -134,29 +131,19 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ahi-Ef-f5Q"/>
                                 </items>
                             </toolbar>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzX-vM-948">
-                                <rect key="frame" x="0.0" y="5" width="600" height="44"/>
-                                <items>
-                                    <navigationItem id="zps-RB-j2S">
-                                        <barButtonItem key="backBarButtonItem" title=" " id="UVA-m5-Vr6"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="trailing" secondItem="VzX-vM-948" secondAttribute="trailing" id="Ccc-xE-LgV"/>
-                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="trailing" secondItem="VzX-vM-948" secondAttribute="trailing" id="Lys-o5-uYE"/>
-                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="top" secondItem="VzX-vM-948" secondAttribute="bottom" id="On0-07-gu5"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="top" secondItem="8AR-Xz-kPj" secondAttribute="bottom" id="QO7-Jg-dKC"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="trailing" secondItem="apH-od-SJP" secondAttribute="trailing" id="Wj7-Gq-8Ka"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="trailing" secondItem="apH-od-SJP" secondAttribute="trailing" id="Q1v-dQ-WKR"/>
                             <constraint firstItem="apH-od-SJP" firstAttribute="leading" secondItem="Jz3-8Z-dOD" secondAttribute="leading" id="XUT-qh-dNe"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="leading" secondItem="VzX-vM-948" secondAttribute="leading" id="e0C-Bq-jG0"/>
-                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="leading" secondItem="VzX-vM-948" secondAttribute="leading" id="iW4-xa-H4Z"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="bottom" secondItem="apH-od-SJP" secondAttribute="top" id="mAE-RQ-7kR"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="leading" secondItem="apH-od-SJP" secondAttribute="leading" id="p3h-oR-b3n"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="leading" secondItem="apH-od-SJP" secondAttribute="leading" id="f8s-69-rIw"/>
+                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="top" secondItem="Jz3-8Z-dOD" secondAttribute="top" id="f98-AB-SFB"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="bottom" secondItem="apH-od-SJP" secondAttribute="top" id="iVS-At-sMK"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="trailing" secondItem="8AR-Xz-kPj" secondAttribute="trailing" id="lPb-WS-Vkc"/>
                             <constraint firstItem="apH-od-SJP" firstAttribute="bottom" secondItem="Sa2-1G-A26" secondAttribute="top" id="sDw-ij-OeU"/>
                             <constraint firstAttribute="trailing" secondItem="apH-od-SJP" secondAttribute="trailing" id="t4m-g3-nQb"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="top" secondItem="HTk-jc-2QV" secondAttribute="bottom" constant="152" id="wdF-AU-FvA"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="leading" secondItem="8AR-Xz-kPj" secondAttribute="leading" id="yKF-Ow-wZU"/>
                         </constraints>
                     </view>
                     <toolbarItems/>

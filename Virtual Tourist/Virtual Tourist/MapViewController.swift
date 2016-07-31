@@ -21,7 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewWillAppear(animated)
         navigationController?.navigationBarHidden = true
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
