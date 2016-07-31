@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8150" systemVersion="15A204g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,13 +17,112 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="launchimage" translatesAutoresizingMaskIntoConstraints="NO" id="w22-St-Av7">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Virtual Tourist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBb-Fm-H4F">
+                                <rect key="frame" x="204" y="176" width="192" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="192" id="QoC-79-77L"/>
+                                    <constraint firstAttribute="height" constant="47" id="UXb-D9-xO4"/>
+                                    <constraint firstAttribute="height" constant="47" id="aga-pf-mPT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="UXb-D9-xO4"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="QoC-79-77L"/>
+                                        <include reference="UXb-D9-xO4"/>
+                                        <exclude reference="aga-pf-mPT"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Copyright © 2016 Daniel Brand. All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2Q-wC-zwR">
+                                <rect key="frame" x="99" y="552" width="403" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="WPQ-io-DZT"/>
+                                    <constraint firstAttribute="height" constant="28" id="pY4-Bx-OLU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="pY4-Bx-OLU"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="WPQ-io-DZT"/>
+                                        <include reference="pY4-Bx-OLU"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="b2Q-wC-zwR" secondAttribute="bottom" constant="28" id="02X-dN-jMT"/>
+                            <constraint firstItem="b2Q-wC-zwR" firstAttribute="centerX" secondItem="w22-St-Av7" secondAttribute="centerX" id="0Py-jB-X9b"/>
+                            <constraint firstAttribute="trailing" secondItem="w22-St-Av7" secondAttribute="trailing" id="1RH-If-AiN"/>
+                            <constraint firstItem="OBb-Fm-H4F" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="149" id="8C7-Wc-vvj"/>
+                            <constraint firstItem="b2Q-wC-zwR" firstAttribute="centerX" secondItem="OBb-Fm-H4F" secondAttribute="centerX" id="B1n-Af-xlD"/>
+                            <constraint firstItem="w22-St-Av7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="HHE-P5-y1u"/>
+                            <constraint firstItem="w22-St-Av7" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="ZVu-gx-SzZ"/>
+                            <constraint firstItem="b2Q-wC-zwR" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="30" id="bQh-31-06E"/>
+                            <constraint firstItem="w22-St-Av7" firstAttribute="centerX" secondItem="b2Q-wC-zwR" secondAttribute="centerX" id="dal-CE-iF8"/>
+                            <constraint firstItem="w22-St-Av7" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="kCV-AR-2K0"/>
+                            <constraint firstItem="b2Q-wC-zwR" firstAttribute="centerX" secondItem="OBb-Fm-H4F" secondAttribute="centerX" id="oi5-Yk-QcG"/>
+                            <constraint firstItem="OBb-Fm-H4F" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="156" id="rxY-Ry-XsS"/>
+                            <constraint firstItem="w22-St-Av7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="t9y-Zh-Um7"/>
+                            <constraint firstItem="OBb-Fm-H4F" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="84" id="uFS-5S-7nr"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1RH-If-AiN"/>
+                                <exclude reference="HHE-P5-y1u"/>
+                                <exclude reference="kCV-AR-2K0"/>
+                                <exclude reference="t9y-Zh-Um7"/>
+                                <exclude reference="8C7-Wc-vvj"/>
+                                <exclude reference="uFS-5S-7nr"/>
+                                <exclude reference="0Py-jB-X9b"/>
+                                <exclude reference="bQh-31-06E"/>
+                                <exclude reference="oi5-Yk-QcG"/>
+                                <exclude reference="02X-dN-jMT"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="1RH-If-AiN"/>
+                                <include reference="HHE-P5-y1u"/>
+                                <exclude reference="ZVu-gx-SzZ"/>
+                                <exclude reference="dal-CE-iF8"/>
+                                <include reference="kCV-AR-2K0"/>
+                                <include reference="t9y-Zh-Um7"/>
+                                <include reference="8C7-Wc-vvj"/>
+                                <exclude reference="rxY-Ry-XsS"/>
+                                <include reference="uFS-5S-7nr"/>
+                                <include reference="0Py-jB-X9b"/>
+                                <exclude reference="B1n-Af-xlD"/>
+                                <include reference="bQh-31-06E"/>
+                                <include reference="oi5-Yk-QcG"/>
+                                <include reference="02X-dN-jMT"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.5" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="launchimage" width="768" height="1024"/>
+    </resources>
 </document>
