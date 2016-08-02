@@ -26,7 +26,7 @@ class Photo: NSManagedObject {
     }
 
     func downloadImageFromFlickrUrl(completionHandler: (image:UIImage!, errorMessage:String?) -> Void) {
-        //look if photo is allready loaded
+        //look if photo is already loaded
         if self.image != nil {
             completionHandler(image: UIImage(data: self.image!)!, errorMessage: nil)
             return
@@ -45,7 +45,6 @@ class Photo: NSManagedObject {
                 }
 
                 self.image = data
-                self.delegate.stack.save()
 
                 completionHandler(image: imageFromData, errorMessage: errorMessage)
             }

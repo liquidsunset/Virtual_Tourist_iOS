@@ -51,10 +51,10 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.stack.context.deleteObject(self.photos[indexPath.row])
-        self.photos.removeAtIndex(indexPath.row)
+        stack.context.deleteObject(self.photos[indexPath.row])
+        photos.removeAtIndex(indexPath.row)
         collectionView.deleteItemsAtIndexPaths([indexPath])
-        self.stack.save()
+        stack.save()
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -67,7 +67,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
 
         FlickrClient.sharedInstance.getPictures(nil, pin: self.pin, context: self.stack.context) {
             (photos, error) in
-            print(photos.count)
             guard (error == nil) else {
                 self.performUpdatesOnMain() {
                     self.showAlertMessage("Error", message: error!)
@@ -78,12 +77,12 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                 if (photos.count == 0) {
                     self.noImagesLabel.hidden = false
                 } else {
-                    self.stack.save()
                     self.noImagesLabel.hidden = true
                     self.photos = photos
 
                     self.collectionView.reloadData()
                     self.newCollectionButton.enabled = true
+                    self.stack.save()
                 }
 
             }
@@ -100,7 +99,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     func removePhotos() {
         pin.deletePhotosFromPin(stack)
         photos.removeAll()
-        stack.save()
     }
 
     @IBAction func generateNewCollection(sender: AnyObject) {

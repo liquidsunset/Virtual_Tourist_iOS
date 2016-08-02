@@ -26,6 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
 
         let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
         stack = delegate.stack
 
         setSavedMapPosition()

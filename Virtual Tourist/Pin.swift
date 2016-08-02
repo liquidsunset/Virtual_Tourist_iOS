@@ -32,6 +32,7 @@ class Pin: NSManagedObject, MKAnnotation {
         for photo in photos! {
             stack.context.deleteObject(photo as! NSManagedObject)
         }
+        stack.save()
     }
 
 }

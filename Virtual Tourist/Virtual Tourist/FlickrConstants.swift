@@ -38,7 +38,7 @@ extension FlickrClient {
         static let NOJsonCallback = "1"
         static let Radius = "2"
         //in km
-        static let PicsPerPage = "1"
+        static let PicsPerPage = "25"
         static let UseSafeSearch = "1"
         static let MediumURL = "url_m"
         static let JsonFormat = "json"
