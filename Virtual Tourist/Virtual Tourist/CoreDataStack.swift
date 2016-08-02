@@ -15,6 +15,7 @@ struct CoreDataStack {
     private let coordinator: NSPersistentStoreCoordinator
     private let modelURL: NSURL
     private let dbURL: NSURL
+    private let persistingContext : NSManagedObjectContext
     let context: NSManagedObjectContext
 
 
@@ -40,11 +41,13 @@ struct CoreDataStack {
         // Create the store coordinator
         coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
 
-
         // Create a persistingContext (private queue) and a child one (main queue)
         // create a context and add connect it to the coordinator
+        persistingContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        persistingContext.persistentStoreCoordinator = coordinator
+
         context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        context.persistentStoreCoordinator = coordinator
+        context.parentContext = persistingContext
 
         //automatically merge and map models between versions
         let mOptions = [NSMigratePersistentStoresAutomaticallyOption: true,

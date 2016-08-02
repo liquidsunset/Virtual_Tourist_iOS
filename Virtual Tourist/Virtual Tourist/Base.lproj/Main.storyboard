@@ -68,14 +68,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8AR-Xz-kPj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="174"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-4l-foy">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="CmE-P7-Ry1"/>
+                                </items>
+                            </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8AR-Xz-kPj">
+                                <rect key="frame" x="0.0" y="44" width="600" height="162"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="198" id="6Ol-mP-NUq"/>
+                                    <constraint firstAttribute="height" constant="162" id="1bC-W1-xAI"/>
                                 </constraints>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xtn-M4-bbr">
-                                <rect key="frame" x="0.0" y="172" width="600" height="384"/>
+                                <rect key="frame" x="0.0" y="207" width="600" height="349"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eFU-0e-bMs">
                                     <size key="itemSize" width="122" height="98"/>
@@ -104,12 +110,12 @@
                                         <color key="backgroundColor" red="0.67499521648403005" green="0.71977856015540098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="OM7-tX-wI9" firstAttribute="centerY" secondItem="yFI-UU-Unu" secondAttribute="centerY" id="Dgv-pE-O8T"/>
-                                            <constraint firstItem="yFI-UU-Unu" firstAttribute="leading" secondItem="Wp2-w0-g21" secondAttribute="leading" id="Dix-v1-xIz"/>
-                                            <constraint firstItem="OM7-tX-wI9" firstAttribute="centerY" secondItem="Wp2-w0-g21" secondAttribute="centerY" id="Hw3-g9-e1B"/>
-                                            <constraint firstItem="yFI-UU-Unu" firstAttribute="top" secondItem="Wp2-w0-g21" secondAttribute="top" id="VRb-HZ-LtP"/>
+                                            <constraint firstAttribute="trailing" secondItem="yFI-UU-Unu" secondAttribute="trailing" id="HSA-30-tFH"/>
+                                            <constraint firstItem="yFI-UU-Unu" firstAttribute="top" secondItem="Wp2-w0-g21" secondAttribute="top" id="Osw-Rk-gqh"/>
                                             <constraint firstItem="yFI-UU-Unu" firstAttribute="centerX" secondItem="OM7-tX-wI9" secondAttribute="centerX" id="a4e-kW-tBZ"/>
+                                            <constraint firstItem="yFI-UU-Unu" firstAttribute="leading" secondItem="Wp2-w0-g21" secondAttribute="leading" id="gbC-Ze-kVf"/>
                                             <constraint firstItem="OM7-tX-wI9" firstAttribute="centerX" secondItem="yFI-UU-Unu" secondAttribute="centerX" id="kPd-Tk-T4R"/>
-                                            <constraint firstItem="OM7-tX-wI9" firstAttribute="centerX" secondItem="Wp2-w0-g21" secondAttribute="centerX" id="sUo-Wr-Vf4"/>
+                                            <constraint firstAttribute="bottom" secondItem="yFI-UU-Unu" secondAttribute="bottom" id="kvb-52-ckg"/>
                                             <constraint firstItem="yFI-UU-Unu" firstAttribute="centerY" secondItem="OM7-tX-wI9" secondAttribute="centerY" id="thz-gl-BRr"/>
                                         </constraints>
                                         <connections>
@@ -131,19 +137,30 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ahi-Ef-f5Q"/>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="NO Images Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a14-WU-owe">
+                                <rect key="frame" x="222" y="283" width="155" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="trailing" secondItem="apH-od-SJP" secondAttribute="trailing" id="Q1v-dQ-WKR"/>
-                            <constraint firstItem="apH-od-SJP" firstAttribute="leading" secondItem="Jz3-8Z-dOD" secondAttribute="leading" id="XUT-qh-dNe"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="leading" secondItem="apH-od-SJP" secondAttribute="leading" id="f8s-69-rIw"/>
-                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="top" secondItem="Jz3-8Z-dOD" secondAttribute="top" id="f98-AB-SFB"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="bottom" secondItem="apH-od-SJP" secondAttribute="top" id="iVS-At-sMK"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="trailing" secondItem="8AR-Xz-kPj" secondAttribute="trailing" id="lPb-WS-Vkc"/>
-                            <constraint firstItem="apH-od-SJP" firstAttribute="bottom" secondItem="Sa2-1G-A26" secondAttribute="top" id="sDw-ij-OeU"/>
-                            <constraint firstAttribute="trailing" secondItem="apH-od-SJP" secondAttribute="trailing" id="t4m-g3-nQb"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="top" secondItem="HTk-jc-2QV" secondAttribute="bottom" constant="152" id="wdF-AU-FvA"/>
-                            <constraint firstItem="xtn-M4-bbr" firstAttribute="leading" secondItem="8AR-Xz-kPj" secondAttribute="leading" id="yKF-Ow-wZU"/>
+                            <constraint firstItem="a14-WU-owe" firstAttribute="centerX" secondItem="xtn-M4-bbr" secondAttribute="centerX" id="3XA-bI-aml"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="trailing" secondItem="apH-od-SJP" secondAttribute="trailing" id="5mI-kd-ZrW"/>
+                            <constraint firstItem="apH-od-SJP" firstAttribute="bottom" secondItem="Sa2-1G-A26" secondAttribute="top" id="KIp-vQ-xqB"/>
+                            <constraint firstAttribute="trailing" secondItem="ecU-4l-foy" secondAttribute="trailing" id="P1H-Ik-HVf"/>
+                            <constraint firstItem="ecU-4l-foy" firstAttribute="leading" secondItem="Jz3-8Z-dOD" secondAttribute="leading" id="PDE-Ud-BKP"/>
+                            <constraint firstItem="a14-WU-owe" firstAttribute="centerY" secondItem="xtn-M4-bbr" secondAttribute="centerY" id="R9D-pa-yYb"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="leading" secondItem="apH-od-SJP" secondAttribute="leading" id="RTN-Df-nef"/>
+                            <constraint firstItem="ecU-4l-foy" firstAttribute="leading" secondItem="8AR-Xz-kPj" secondAttribute="leading" id="VSd-dM-qpl"/>
+                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="leading" secondItem="xtn-M4-bbr" secondAttribute="leading" id="Y4B-WZ-T2M"/>
+                            <constraint firstItem="ecU-4l-foy" firstAttribute="top" secondItem="Jz3-8Z-dOD" secondAttribute="top" id="cZ0-YA-dZE"/>
+                            <constraint firstItem="apH-od-SJP" firstAttribute="top" secondItem="xtn-M4-bbr" secondAttribute="bottom" id="ggY-yI-lR7"/>
+                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="top" secondItem="ecU-4l-foy" secondAttribute="bottom" id="iwu-Cz-HGj"/>
+                            <constraint firstItem="ecU-4l-foy" firstAttribute="trailing" secondItem="8AR-Xz-kPj" secondAttribute="trailing" id="nTv-pP-5li"/>
+                            <constraint firstItem="8AR-Xz-kPj" firstAttribute="trailing" secondItem="xtn-M4-bbr" secondAttribute="trailing" id="nX5-Qo-dBG"/>
+                            <constraint firstItem="xtn-M4-bbr" firstAttribute="top" secondItem="8AR-Xz-kPj" secondAttribute="bottom" constant="1" id="ptk-pq-Mji"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -151,6 +168,7 @@
                         <outlet property="collectionView" destination="xtn-M4-bbr" id="OZ7-4Z-ept"/>
                         <outlet property="mapView" destination="8AR-Xz-kPj" id="Elo-j1-3sU"/>
                         <outlet property="newCollectionButton" destination="eDF-bl-7E0" id="hRJ-Yj-QZn"/>
+                        <outlet property="noImagesLabel" destination="a14-WU-owe" id="B4X-B8-3Ic"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hxv-lO-M8y" userLabel="First Responder" sceneMemberID="firstResponder"/>

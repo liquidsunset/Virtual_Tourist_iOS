@@ -18,8 +18,12 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var newCollectionButton: UIBarButtonItem!
 
+    @IBOutlet weak var noImagesLabel: UILabel!
+
+
     var pin: Pin!
     var photos = [Photo]()
+
     var stack: CoreDataStack!
 
     override func viewDidLoad() {
@@ -30,10 +34,12 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         collectionView.delegate = self
         collectionView.dataSource = self
 
+        noImagesLabel.hidden = true
         centerMapToPin(Double(pin.latidude!), longitude: Double(pin.longitude!))
         mapView.addAnnotation(pin)
 
         if (photos.count == 0) {
+            noImagesLabel.hidden = false
             newCollectionButton.enabled = false
             getPhotosFromFlickr()
             collectionView.reloadData()
@@ -58,21 +64,24 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     func getPhotosFromFlickr() {
-        FlickrClient.sharedInstance.getPictures(nil, pin: pin, context: stack.context) {
+
+        FlickrClient.sharedInstance.getPictures(nil, pin: self.pin, context: self.stack.context) {
             (photos, error) in
+            print(photos.count)
             guard (error == nil) else {
                 self.performUpdatesOnMain() {
                     self.showAlertMessage("Error", message: error!)
                 }
                 return
             }
-
-            if (photos.count == 0) {
-                
-            }else {
-                self.performUpdatesOnMain() {
-                    self.photos = photos
+            self.performUpdatesOnMain() {
+                if (photos.count == 0) {
+                    self.noImagesLabel.hidden = false
+                } else {
                     self.stack.save()
+                    self.noImagesLabel.hidden = true
+                    self.photos = photos
+
                     self.collectionView.reloadData()
                     self.newCollectionButton.enabled = true
                 }
@@ -89,16 +98,14 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     func removePhotos() {
-        for photo in photos {
-            stack.context.deleteObject(photo)
-        }
-        photos = []
-        collectionView.reloadData()
+        pin.deletePhotosFromPin(stack)
+        photos.removeAll()
         stack.save()
     }
 
     @IBAction func generateNewCollection(sender: AnyObject) {
         removePhotos()
+        collectionView.reloadData()
         getPhotosFromFlickr()
     }
 }

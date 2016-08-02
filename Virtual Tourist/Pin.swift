@@ -28,4 +28,10 @@ class Pin: NSManagedObject, MKAnnotation {
         return CLLocationCoordinate2D(latitude: latidude as! Double, longitude: longitude as! Double)
     }
 
+    func deletePhotosFromPin(stack: CoreDataStack) {
+        for photo in photos! {
+            stack.context.deleteObject(photo as! NSManagedObject)
+        }
+    }
+
 }

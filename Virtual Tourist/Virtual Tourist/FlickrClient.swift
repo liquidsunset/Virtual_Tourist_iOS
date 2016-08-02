@@ -17,7 +17,7 @@ class FlickrClient {
     func getPictures(pageNumber: Int?, pin: Pin, context: NSManagedObjectContext, completionHandler: (photos:[Photo]!, errorMessage:String?) -> Void) {
 
         let urlString = createFlickrUrlString(pageNumber, lat: Double(pin.latidude!), lon: Double(pin.longitude!))
-        print(urlString)
+
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
 
@@ -61,8 +61,8 @@ class FlickrClient {
                         completionHandler(photos: nil, errorMessage: "No Flickr Photo-Page found")
                         return
                     }
-
-                    let random = Int(arc4random_uniform(UInt32(pages))) + 1
+                    let pageLimit = min(pages, 40)
+                    let random = Int(arc4random_uniform(UInt32(pageLimit))) + 1
                     self.getPictures(random, pin: pin, context: context, completionHandler: completionHandler)
 
                 } else {
@@ -137,7 +137,7 @@ class FlickrClient {
     }
 
     private func createFlickrUrlString(pageNumber: Int?, lat: Double, lon: Double) -> String {
-        let urlParameters: [String:AnyObject] = [
+        var urlParameters: [String:AnyObject] = [
                 URLParameterKeys.APIKey: Constants.FlickrAPIKey,
                 URLParameterKeys.SafeSearch: URLParameterValues.UseSafeSearch,
                 URLParameterKeys.Extras: URLParameterValues.MediumURL,
@@ -149,16 +149,12 @@ class FlickrClient {
                 URLParameterKeys.Radius: URLParameterValues.Radius,
                 URLParameterKeys.NoJsonCallback: URLParameterValues.NOJsonCallback
         ]
-        var urlString = Constants.BaseUrlSecure + Utility.escapedParameters(urlParameters)
         if (pageNumber == nil) {
-            return urlString
         } else {
-            let pageParam: [String:AnyObject] = [
-                    URLParameterKeys.Page: pageNumber!
-            ]
-            urlString = urlString + Utility.escapedParameters(pageParam)
-            return urlString
+            urlParameters[URLParameterKeys.Page] = pageNumber
         }
+        return Constants.BaseUrlSecure + Utility.escapedParameters(urlParameters)
+
     }
 
 }
