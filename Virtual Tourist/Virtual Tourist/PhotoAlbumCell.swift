@@ -17,6 +17,11 @@ class PhotoAlbumCell: UICollectionViewCell {
 
     var pic: Photo! = nil {
         didSet {
+            
+            if(imageView.image != nil) {
+                imageView.image = nil
+            }
+            
             acitvityIndicator.hidden = false
             acitvityIndicator.startAnimating()
 
