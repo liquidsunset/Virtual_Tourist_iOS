@@ -16,7 +16,12 @@ class FlickrClient {
 
     func getPictures(pageNumber: Int?, pin: Pin, context: NSManagedObjectContext, completionHandler: (photos:[Photo]!, errorMessage:String?) -> Void) {
 
-        let urlString = createFlickrUrlString(pageNumber, lat: Double(pin.latidude!), lon: Double(pin.longitude!))
+
+        var urlString = ""
+        context.performBlockAndWait() {
+            urlString = self.createFlickrUrlString(pageNumber, lat: Double(pin.latidude!), lon: Double(pin.longitude!))
+        }
+
 
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
@@ -89,15 +94,20 @@ class FlickrClient {
                             completionHandler(photos: nil, errorMessage: "No ID for Picture found")
                             return
                         }
+                        context.performBlockAndWait() {
 
-                        let persistentPhoto = Photo(url: imageURL, id: imgID, context: context)
-                        persistentPhoto.pin = pin
-                        persistentPhotosArray.append(persistentPhoto)
+                            let persistentPhoto = Photo(url: imageURL, id: imgID, context: context)
+                            persistentPhoto.pin = pin
+                            persistentPhotosArray.append(persistentPhoto)
+                        }
+
                     }
 
                     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
                     let stack = delegate.stack
-                    stack.save()
+                    context.performBlockAndWait() {
+                        stack.save()
+                    }
 
                     completionHandler(photos: persistentPhotosArray, errorMessage: nil)
                 }

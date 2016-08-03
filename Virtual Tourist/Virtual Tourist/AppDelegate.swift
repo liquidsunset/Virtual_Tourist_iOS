@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let stack = CoreDataStack(modelName: "VirtualTourist")!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
-        stack.autoSave(60)
+        stack.autoSave(120)
         // Override point for customization after application launch.
         return true
     }

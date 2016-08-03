@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		340719651D51C33D00460512 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340719641D51C33D00460512 /* CustomLayout.swift */; };
 		3409A7471D4B798E007B3DBC /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3409A7461D4B798E007B3DBC /* Utility.swift */; };
 		340E2A6C1D44B6B100BBBC0C /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E2A6B1D44B6B100BBBC0C /* FlickrConstants.swift */; };
 		340E2A6E1D44B6C700BBBC0C /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E2A6D1D44B6C700BBBC0C /* FlickrClient.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		340719641D51C33D00460512 /* CustomLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		3409A7461D4B798E007B3DBC /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		340E2A6B1D44B6B100BBBC0C /* FlickrConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
 		340E2A6D1D44B6C700BBBC0C /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				34CC92A81D4C8BE200B935FB /* PhotoAlbumCell.swift */,
+				340719641D51C33D00460512 /* CustomLayout.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				34CA4C9D1D47F37C00491C86 /* VirtualTourist.xcdatamodeld in Sources */,
 				34D2DBAF1D48B48A001FCA0C /* Pin.swift in Sources */,
 				34D2DBB11D48B48A001FCA0C /* Photo.swift in Sources */,
+				340719651D51C33D00460512 /* CustomLayout.swift in Sources */,
 				34CC92A91D4C8BE200B935FB /* PhotoAlbumCell.swift in Sources */,
 				34D2DBAE1D48B48A001FCA0C /* Pin+CoreDataProperties.swift in Sources */,
 				34D2DBB31D48CBF9001FCA0C /* CoreDataStack.swift in Sources */,

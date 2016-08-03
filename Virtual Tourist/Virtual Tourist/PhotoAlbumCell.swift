@@ -17,13 +17,15 @@ class PhotoAlbumCell: UICollectionViewCell {
 
     var pic: Photo! = nil {
         didSet {
-            
-            if(imageView.image != nil) {
+
+            if (imageView.image != nil) {
                 imageView.image = nil
             }
-            
-            acitvityIndicator.hidden = false
-            acitvityIndicator.startAnimating()
+
+            dispatch_async(dispatch_get_main_queue(), {
+                self.acitvityIndicator.hidden = false
+                self.acitvityIndicator.startAnimating()
+            })
 
             pic.downloadImageFromFlickrUrl() {
                 (image, errorMessage) in

@@ -17,6 +17,7 @@ class Photo: NSManagedObject {
 
     convenience init(url: String, id: String, context: NSManagedObjectContext) {
         if let createEntity = NSEntityDescription.entityForName("Photo", inManagedObjectContext: context) {
+
             self.init(entity: createEntity, insertIntoManagedObjectContext: context)
             self.url = url
             self.id = id
@@ -44,8 +45,9 @@ class Photo: NSManagedObject {
                     return
                 }
 
-                self.image = data
-
+                self.delegate.stack.context.performBlockAndWait() {
+                    self.image = data
+                }
                 completionHandler(image: imageFromData, errorMessage: errorMessage)
             }
         }

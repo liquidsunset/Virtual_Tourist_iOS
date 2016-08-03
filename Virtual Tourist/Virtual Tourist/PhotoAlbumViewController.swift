@@ -57,6 +57,10 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         stack.save()
     }
 
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("albumCell", forIndexPath: indexPath) as! PhotoAlbumCell
         cell.pic = photos[indexPath.row]

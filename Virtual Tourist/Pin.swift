@@ -25,7 +25,13 @@ class Pin: NSManagedObject, MKAnnotation {
 
     //for MKAnnotation stuff
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: latidude as! Double, longitude: longitude as! Double)
+        get {
+            return CLLocationCoordinate2D(latitude: latidude as! Double, longitude: longitude as! Double)
+        }
+        set {
+            self.latidude = newValue.latitude
+            self.longitude = newValue.longitude
+        }
     }
 
     func deletePhotosFromPin(stack: CoreDataStack) {

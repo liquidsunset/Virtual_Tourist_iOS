@@ -16,6 +16,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
 
     var stack: CoreDataStack!
+    var lastPin: Pin! = nil
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -121,15 +122,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
     func handleLongPress(longPress: UIGestureRecognizer) {
-        if longPress.state == .Began {
-            let coordinates = mapView.convertPoint(longPress.locationOfTouch(0, inView: mapView), toCoordinateFromView: mapView)
-            let pin = Pin(latidude: coordinates.latitude, longitude: coordinates.longitude, context: stack.context)
+        let coordinates: CLLocationCoordinate2D = mapView.convertPoint(longPress.locationOfTouch(0, inView: mapView), toCoordinateFromView: mapView)
 
+        switch longPress.state {
+        case .Began:
+            lastPin = Pin(latidude: coordinates.latitude, longitude: coordinates.longitude, context: stack.context)
+            mapView.addAnnotation(lastPin)
+        case .Changed:
+            lastPin.willChangeValueForKey("coordinate")
+            lastPin.coordinate = coordinates
+            lastPin.didChangeValueForKey("coordinate")
+        case .Ended:
             stack.save()
-
-            mapView.addAnnotation(pin)
-
+        default:
+            return
         }
+
     }
 
     func fetchAnnotations() {
